@@ -1,24 +1,68 @@
 package Actividad1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        Usuario usuario1 = new Usuario(1, "Paco", "Perez", "pacoperez1@gmail.com", "1234", 123456789);
-        Usuario usuario2 = new Usuario(2, "Maria", "Lopez", "marialopez@gmail.com", "4321", 987654321);
-        Usuario usuario3 = new Usuario(3, "Juan", "Garcia", "juangarcia@gmail.com", "5678", 123789456);
+        Scanner sc = new Scanner(System.in);
+        List<Usuario> usuarios = new ArrayList<>();
+        Usuario usuario = new Usuario();
+        String opcion;
 
 
-        //Añadir usuarios
-        Usuario.anadirUsuarios(usuario1);
-        Usuario.anadirUsuarios(usuario2);
-        Usuario.anadirUsuarios(usuario3);
-        //Usuario repetido
-        Usuario.anadirUsuarios(usuario1);
+        do {
+            System.out.println("-----------------------------");
+            System.out.println("Bienvenido a la plataforma de cursos online.");
+            System.out.println("-----------------------------");
+            System.out.println("1. Registrarse");
+            System.out.println("2. Acceder a mi perfil");
+            System.out.println("3. Listar usuarios");
+            System.out.println("0. Salir");
+            System.out.println("Por favor, seleccione una opción: ");
 
-        //Listar usuarios
-        Usuario.listarUsuarios();
+            opcion = sc.nextLine();
+
+            switch (opcion) {
+
+                case "1":
+
+                    usuario.registrarUsuario();
+                    System.out.println("-----------------------------");
+                    System.out.println("Usuario registrado con éxito.");
+
+                    break;
 
 
+                case "2":
+                    System.out.println("Accediendo a mi perfil...");
+                    break;
+
+                case "3":
+
+                    System.out.println("Listado de usuarios: ");
+                    break;
+
+                case "0":
+                    System.out.println("-----------------------------");
+                    System.out.println("Saliendo de la plataforma...");
+
+                    break;
+
+                default:
+                    System.out.println("-----------------------------");
+                    System.out.println("Opción no válida.");
+                    System.out.println("Por favor, seleccione una opción válida.");
+
+                    break;
+
+            }
+
+
+        } while (!opcion.equals("0"));
 
 
     }

@@ -1,6 +1,9 @@
 package Actividad1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class Usuario {
 
@@ -10,35 +13,100 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private int telefono;
-    private static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
-
+    private List<String> intereses;
+    private int contadorUsuarios = 1;
+    private ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    private List<String> ListaIntereses = Arrays.asList("Matematicas", "Programacion", "Fisica", "Literatura", "Geografia");
 
     //Constructor
-    public Usuario(int ID_usuario, String nombre, String apellidos, String correo, String contrasena, int telefono) {
-        this.ID_usuario = ID_usuario;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.correo = correo;
-        this.contrasena = contrasena;
-        this.telefono = telefono;
+    public Usuario() {
+
+        this.listaUsuarios = new ArrayList<Usuario>();
     }
 
     //Añadir usuarios
-    public static void anadirUsuarios(Usuario usuario) {
+    public void registrarUsuario() {
 
-        if (!listaUsuarios.contains(usuario)) {
-            listaUsuarios.add(usuario);
-            System.out.println("Usuario agregado correctamente." + " ID: " + usuario.getID_usuario() + ", " + usuario.getNombre() + " " + usuario.getApellidos());
-        } else {
+        Scanner sc = new Scanner(System.in);
 
-            System.out.println("No se puede agregar a un usuario ya existente" + " ID: " + usuario.getID_usuario() + ", " + usuario.getNombre() + " " + usuario.getApellidos());
-            System.out.println("Por favor intenta con otro usuario.");
+        while (true) {
+            System.out.println("Escriba su nombre: ");
+            String nombre = sc.nextLine();
+            if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
+
+                System.out.println("Nombre inválido. Intente nuevamente.");
+            } else {
+
+                break;
+            }
         }
+
+        while (true) {
+
+            System.out.println("Escriba sus apellidos: ");
+            String apellidos = sc.nextLine();
+            if (!apellidos.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
+
+                System.out.println("Apellidos inválidos. Intente nuevamente.");
+
+            } else {
+
+                break;
+            }
+        }
+
+        while (true) {
+
+            System.out.println("Escriba su correo: ");
+            String correo = sc.nextLine();
+
+            if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+                System.out.println("Correo inválido. Intente nuevamente.");
+            } else {
+                break;
+            }
+
+        }
+
+        System.out.println("Escriba su contraseña: ");
+        String contrasena = sc.nextLine();
+
+        while (true) {
+            System.out.println("Escriba su telefono: ");
+            int telefono = sc.nextInt();
+            sc.nextLine();
+
+            if (String.valueOf(telefono).length() != 9) {
+                System.out.println("Número de teléfono inválido. Intente nuevamente.");
+            } else {
+                break;
+            }
+
+        }
+
+        List<String> intereses = new ArrayList<String>();
+        System.out.println("\nElija sus intereses (máximo 2). Opciones disponibles: " + ListaIntereses);
+
+
+        while (intereses.size() < 2) {
+
+            System.out.print("Ingrese un interés: ");
+            String interes = sc.nextLine().toLowerCase();
+
+            if (ListaIntereses.contains(interes.toLowerCase()) && !intereses.contains(interes.toLowerCase())) {
+
+                intereses.add(interes);
+
+            } else {
+                System.out.println("Interés inválido o ya elegido. Intente nuevamente.");
+            }
+        }
+
 
     }
 
     //Listar usuarios
-    public static void listarUsuarios() {
+    public void listarUsuarios() {
 
         System.out.println("Lista de usuarios: ");
 
@@ -97,12 +165,20 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public static ArrayList<Usuario> getListaUsuarios() {
+    public ArrayList<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public static void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
-        Usuario.listaUsuarios = listaUsuarios;
+    public void setIntereses(List<String> intereses) {
+        this.intereses = intereses;
+    }
+
+    public List<String> getIntereses() {
+        return intereses;
+    }
+
+    public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
     //To String
