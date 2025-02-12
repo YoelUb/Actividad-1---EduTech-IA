@@ -16,22 +16,35 @@ public class Usuario {
     private List<String> intereses;
     private int contadorUsuarios = 1;
     private ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
-    private List<String> ListaIntereses = Arrays.asList("Matematicas", "Programacion", "Fisica", "Literatura", "Geografia");
+    private List<String> ListaIntereses = Arrays.asList("matematicas", "programacion", "fisica", "literatura", "geografia");
 
-    //Constructor
+
+    //Constructor por defecto
     public Usuario() {
+    }
 
-        this.listaUsuarios = new ArrayList<Usuario>();
+
+    //Constructor con valores
+    public Usuario(List<String> intereses, int telefono, String contrasena, String correo, String apellidos, String nombre) {
+        this.intereses = intereses;
+        this.telefono = telefono;
+        this.contrasena = contrasena;
+        this.correo = correo;
+        this.apellidos = apellidos;
+        this.nombre = nombre;
+        this.ID_usuario = contadorUsuarios++;
     }
 
     //Añadir usuarios
-    public void registrarUsuario() {
+    public Usuario registrarUsuario() {
 
         Scanner sc = new Scanner(System.in);
 
+        String nombre = "";
+
         while (true) {
             System.out.println("Escriba su nombre: ");
-            String nombre = sc.nextLine();
+            nombre = sc.nextLine();
             if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
 
                 System.out.println("Nombre inválido. Intente nuevamente.");
@@ -41,10 +54,12 @@ public class Usuario {
             }
         }
 
+        String apellidos = "";
+
         while (true) {
 
             System.out.println("Escriba sus apellidos: ");
-            String apellidos = sc.nextLine();
+            apellidos = sc.nextLine();
             if (!apellidos.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
 
                 System.out.println("Apellidos inválidos. Intente nuevamente.");
@@ -55,30 +70,62 @@ public class Usuario {
             }
         }
 
+
         while (true) {
 
             System.out.println("Escriba su correo: ");
-            String correo = sc.nextLine();
+            String correoTemp = sc.nextLine();
+
+            boolean correoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getCorreo().equals(correo));
 
             if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
                 System.out.println("Correo inválido. Intente nuevamente.");
+            } else if (correoExiste) {
+
+                System.out.println("Correo ya introducido");
+
             } else {
+
+                correo = correoTemp;
                 break;
             }
 
         }
 
-        System.out.println("Escriba su contraseña: ");
-        String contrasena = sc.nextLine();
+        while (true) {
+
+            System.out.println("Escriba su contraseña: ");
+            String contrasena = sc.nextLine();
+
+            if (contrasena.isEmpty()) {
+
+                System.out.println("Contraseña inválida. Intente nuevamente.");
+            } else {
+
+                break;
+            }
+
+
+        }
+
 
         while (true) {
             System.out.println("Escriba su telefono: ");
-            int telefono = sc.nextInt();
+            int telefonoTemporal = sc.nextInt();
             sc.nextLine();
 
-            if (String.valueOf(telefono).length() != 9) {
+            boolean telefonoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getTelefono() == telefono);
+
+            if (String.valueOf(telefono).length() != 9 && !String.valueOf(telefono).matches("[0-9]+")) {
                 System.out.println("Número de teléfono inválido. Intente nuevamente.");
+
+            } else if (telefonoExiste) {
+
+                System.out.println("Telefono ya introducido");
+
             } else {
+
+                telefono = telefonoTemporal;
                 break;
             }
 
@@ -101,6 +148,11 @@ public class Usuario {
                 System.out.println("Interés inválido o ya elegido. Intente nuevamente.");
             }
         }
+
+
+        Usuario usuario = new Usuario(intereses, telefono, contrasena, correo, apellidos, nombre);
+        listaUsuarios.add(usuario);
+        return usuario;
 
 
     }
@@ -184,13 +236,6 @@ public class Usuario {
     //To String
     @Override
     public String toString() {
-        return "Usuario{" +
-                "ID_usuario=" + ID_usuario +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", correo='" + correo + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                ", telefono=" + telefono +
-                '}';
+        return "Usuario{" + "ID_usuario=" + ID_usuario + ", nombre='" + nombre + '\'' + ", apellidos='" + apellidos + '\'' + ", correo='" + correo + '\'' + ", contrasena='" + contrasena + '\'' + ", telefono=" + telefono + ", intereses=" + intereses + '}';
     }
 }
