@@ -16,6 +16,8 @@ public class Contenido {
 
 
     // Getters and Setters
+
+
     public int getID_contenido() {
         return ID_contenido;
     }

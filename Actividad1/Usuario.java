@@ -15,7 +15,7 @@ public class Usuario {
     private String telefono;
     private List<String> intereses;
     private static int contadorUsuarios = 1;
-    private  static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    private static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private List<String> ListaIntereses = Arrays.asList("matematicas", "programacion", "fisica", "literatura", "geografia");
 
 
@@ -119,7 +119,7 @@ public class Usuario {
             // Buscamos en la lista si el telefono ya existe
             boolean telefonoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getTelefono().equals(telefonoTemporal));
 
-            if (String.valueOf(telefonoTemporal).length() != 9 && !String.valueOf(telefonoTemporal).matches("[0-9]+")) {
+            if (telefonoTemporal.length() != 9 || !telefonoTemporal.matches("[0-9]+")) {
                 System.out.println("Número de teléfono inválido. Intente nuevamente.");
 
             } else if (telefonoExiste) {
@@ -176,7 +176,6 @@ public class Usuario {
     public Usuario iniciarSesion() {
 
         Scanner sc = new Scanner(System.in);
-        Menu menu = new Menu();
 
         System.out.println("Introduzca su correo: ");
         String correo = sc.nextLine();
@@ -189,7 +188,9 @@ public class Usuario {
             if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
 
                 System.out.println("Sesión iniciada correctamente.");
-                Recomendaciones recomendaciones = new Recomendaciones(usuario, menu.listaCursos);
+                Recomendaciones recomendaciones = new Recomendaciones(usuario, Cursos.getListaCursos());
+                recomendaciones.contenido();
+
 
                 return usuario;
             }
@@ -261,6 +262,10 @@ public class Usuario {
 
     public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
+    }
+
+    public List<String> getListaIntereses() {
+        return ListaIntereses;
     }
 
     //To String
