@@ -12,10 +12,10 @@ public class Usuario {
     private String apellidos;
     private String correo;
     private String contrasena;
-    private int telefono;
+    private String telefono;
     private List<String> intereses;
-    private int contadorUsuarios = 1;
-    private ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    private static int contadorUsuarios = 1;
+    private  static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private List<String> ListaIntereses = Arrays.asList("matematicas", "programacion", "fisica", "literatura", "geografia");
 
 
@@ -25,7 +25,7 @@ public class Usuario {
 
 
     //Constructor con valores
-    public Usuario(List<String> intereses, int telefono, String contrasena, String correo, String apellidos, String nombre) {
+    public Usuario(List<String> intereses, String telefono, String contrasena, String correo, String apellidos, String nombre) {
         this.intereses = intereses;
         this.telefono = telefono;
         this.contrasena = contrasena;
@@ -76,10 +76,11 @@ public class Usuario {
             System.out.println("Escriba su correo: ");
             String correoTemp = sc.nextLine();
 
-            boolean correoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getCorreo().equals(correo));
+            boolean correoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getCorreo().equals(correoTemp));
 
-            if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            if (!correoTemp.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
                 System.out.println("Correo inválido. Intente nuevamente.");
+
             } else if (correoExiste) {
 
                 System.out.println("Correo ya introducido");
@@ -92,10 +93,12 @@ public class Usuario {
 
         }
 
+        String contrasena = "";
+
         while (true) {
 
             System.out.println("Escriba su contraseña: ");
-            String contrasena = sc.nextLine();
+            contrasena = sc.nextLine();
 
             if (contrasena.isEmpty()) {
 
@@ -111,12 +114,12 @@ public class Usuario {
 
         while (true) {
             System.out.println("Escriba su telefono: ");
-            int telefonoTemporal = sc.nextInt();
-            sc.nextLine();
+            String telefonoTemporal = sc.nextLine();
 
-            boolean telefonoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getTelefono() == telefono);
+            // Buscamos en la lista si el telefono ya existe
+            boolean telefonoExiste = listaUsuarios.stream().anyMatch(usuario -> usuario.getTelefono().equals(telefonoTemporal));
 
-            if (String.valueOf(telefono).length() != 9 && !String.valueOf(telefono).matches("[0-9]+")) {
+            if (String.valueOf(telefonoTemporal).length() != 9 && !String.valueOf(telefonoTemporal).matches("[0-9]+")) {
                 System.out.println("Número de teléfono inválido. Intente nuevamente.");
 
             } else if (telefonoExiste) {
@@ -169,6 +172,33 @@ public class Usuario {
 
     }
 
+    //Iniciar Sesion
+    public Usuario iniciarSesion() {
+
+        Scanner sc = new Scanner(System.in);
+        Menu menu = new Menu();
+
+        System.out.println("Introduzca su correo: ");
+        String correo = sc.nextLine();
+
+        System.out.println("Introduzca su contraseña: ");
+        String contrasena = sc.nextLine();
+
+        for (Usuario usuario : listaUsuarios) {
+
+            if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
+
+                System.out.println("Sesión iniciada correctamente.");
+                Recomendaciones recomendaciones = new Recomendaciones(usuario, menu.listaCursos);
+
+                return usuario;
+            }
+        }
+
+        System.out.println("Correo o contraseña incorrectos.");
+        return null;
+    }
+
     public int getID_usuario() {
         return ID_usuario;
     }
@@ -209,11 +239,11 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
