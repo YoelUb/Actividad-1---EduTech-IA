@@ -23,7 +23,7 @@ Requisitos Previos:
 - Tener GIT instalado para poder clonar mi repositorio
 
 
-Ejecutar el Proyeco:
+Ejecutar el Proyecto:
 
 - Clonar el repositorio (Terminal):
   "git clone https://github.com/YoelUb/Actividad-1---EduTech-IA/tree/main/Actividad1"
