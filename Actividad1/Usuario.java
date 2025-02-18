@@ -163,10 +163,15 @@ public class Usuario {
     //Listar usuarios
     public void listarUsuarios() {
 
-        System.out.println("Lista de usuarios: ");
+
+
+        if (listaUsuarios.isEmpty()) {
+
+            System.out.println("No hay usuarios registrados.");
+        }
 
         for (Usuario usuarios : listaUsuarios) {
-
+            System.out.println("Lista de usuarios: ");
             System.out.println(usuarios.toString());
         }
 

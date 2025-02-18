@@ -48,7 +48,7 @@ public class Menu {
                     System.out.println("-----------------------------");
                     System.out.println("Listado de usuarios: ");
                     usuario.listarUsuarios();
-                    System.out.println("-----------------------------");
+                    
                     break;
 
 
