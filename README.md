@@ -1,7 +1,7 @@
 # Actividad-1---EduTech-IA
 Link a Repostorio --> https://github.com/YoelUb/Actividad-1---EduTech-IA/tree/main/Actividad1
 
-En este proyecto se plnateo realizar un Producto Mínimo Viable "MVP" para una Start Up que necesitaba una plataforma digital la cual tenia que adaptar los cursos y contenidos al perfil de usuario. 
+En este proyecto se planteo realizar un Producto Mínimo Viable "MVP" para una Start Up que necesitaba una plataforma digital la cual tenia que adaptar los cursos y contenidos al perfil de usuario. 
 
 Caracteristicas Principales: 
 

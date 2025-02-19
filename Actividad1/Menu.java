@@ -1,18 +1,15 @@
 package Actividad1;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-
 
     Scanner sc = new Scanner(System.in);
     Usuario usuario = new Usuario();
     String opcion;
 
 
-    public Menu() {
+    public Menu () {
 
         Cursos.iniciarCursos();
 
